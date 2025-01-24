@@ -83,16 +83,16 @@ class LoginRegisterViewController: UIViewController, UITextFieldDelegate {
     
     
     
-    //Registering the user.
+    // Registering the user.
     @IBAction func registerButton(_ sender: Any) {
         if(!CheckInput()){
             return
         }
         
-        //Getting a reference to Database
+        // Getting a reference to Database
         let ref = Database.database().reference()
         
-        //Gets the registration alert screen
+        // Gets the registration alert screen
         let alert = UIAlertController(title: "Register", message: "Please check Password", preferredStyle: .alert)
         
         
@@ -111,7 +111,7 @@ class LoginRegisterViewController: UIViewController, UITextFieldDelegate {
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {
             (action) in
             
-            //Collecting the first value of the input text in the above textfield.
+            // Collecting the second value of the input text in the above textfield.
             let passwordConfirm = alert.textFields![1] as UITextField
             if passwordConfirm.text!.isEqual(self.passwordText.text!){
                 
@@ -119,7 +119,7 @@ class LoginRegisterViewController: UIViewController, UITextFieldDelegate {
                 let email = self.emailText.text
                 let password = self.passwordText.text
                 
-                //Creates a new user with the input credentials.
+                // Creates a new user with the input credentials.
                 Auth.auth().createUser(withEmail: email!, password: password!, completion: { (user, error) in
                     if let error = error{
                         Utilities().ShowAlert(title: "Error", message: error.localizedDescription, viewcontroller: self)
@@ -136,7 +136,7 @@ class LoginRegisterViewController: UIViewController, UITextFieldDelegate {
                     return
                 }
                 
-                //Firebase keys can't contain '.' so replace it with ','
+                // Firebase keys can't contain '.' so replace it with ','
                 let safeEmail = email!.replacingOccurrences(of: ".", with: ",")
                 
                 // Creates an email container for the user data and stores the input
@@ -204,7 +204,7 @@ class LoginRegisterViewController: UIViewController, UITextFieldDelegate {
             
            
                 
-            //Sends password to user's email!
+            // Sends password to user's email!
             Auth.auth().sendPasswordReset(withEmail: self.emailText.text!, completion: { (error) in
                 
                 if let error = error{
@@ -231,7 +231,7 @@ class LoginRegisterViewController: UIViewController, UITextFieldDelegate {
         
         self.passwordText.delegate = self
         
-        //Changing the placeholder text to have more color.
+        // Changing the placeholder text to have more color.
         emailText.attributedPlaceholder = NSAttributedString(
             string: "Email"
             , attributes: [
@@ -244,8 +244,8 @@ class LoginRegisterViewController: UIViewController, UITextFieldDelegate {
             )
         
        
-        //Gets a TapGestureRecognizer to remove the keyboard when you tap off the text
-        //field.
+        // Gets a TapGestureRecognizer to remove the keyboard when you tap off the text
+        // field.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginRegisterViewController.dismissKeyboard))
         
         
